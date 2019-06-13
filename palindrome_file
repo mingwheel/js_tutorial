@@ -1,0 +1,17 @@
+#!/usr/local/bin/node
+
+const fs = require("fs");
+let Phrase = require("mingwheel-palindrome-learnenough");
+
+let text = fs.readFileSync("phrases.txt", "utf8");
+text.split("\n").forEach(line => {
+  let phrase = new Phrase(line);
+  if (phrase.palindrome()) {
+    try {
+      fs.appendFileSync("palindromes.txt", `${line}\n`, 'utf8')
+      console.log(`Added "${line}" to palindromes.txt`);
+    } catch(err) {
+      console.log(err);
+    }
+  }
+});

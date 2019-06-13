@@ -1,0 +1,23 @@
+#!/usr/local/bin/node
+
+let request = require('request');
+let Phrase = require("mingwheel-palindrome-learnenough");
+let url = 'https://cdn.learnenough.com/phrases.txt';
+
+request(url, function(error, response, body) {
+    body.split("\n").forEach( line => {
+        let phrase = new Phrase(line);
+        if (phrase.palindrome()) {
+            console.log("palindrome detected:", line);
+        };
+    });
+});
+
+// request(url, function(err, res, body) {
+//     let lines = body.split("\n");
+//     let palindromes = lines.filter(line => {
+//         let phrase = new Phrase(line); 
+//         return phrase.palindrome(); 
+//     });
+//     palindromes.forEach(palindrome => { console.log('palindrome detected:', palindrome); });
+// });
